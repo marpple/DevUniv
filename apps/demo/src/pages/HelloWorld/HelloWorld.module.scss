@@ -19,6 +19,12 @@
     color: $white;
   }
 
+  .description {
+    color: $white;
+    font-size: ptr(20);
+    text-align: center;
+  }
+
   .logo {
     width: ptr(40);
     height: ptr(40);
