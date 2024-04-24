@@ -1,0 +1,18 @@
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: ptr(200);
+  color: $white;
+  gap: ptr(8);
+
+  .button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: ptr(40);
+    height: ptr(40);
+    font-size: ptr(30);
+    line-height: 0.8;
+  }
+}

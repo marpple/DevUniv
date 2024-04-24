@@ -1,0 +1,29 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm rune dev",
+    "build": "pnpm rune build",
+    "start": "pnpm rune start"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fxts/core": "^0.28.1",
+    "@rune-ts/server": "^0.9.24",
+    "rune-ts": "^0.8.7",
+    "ua-parser-js": "^1.0.37"
+  },
+  "devDependencies": {
+    "@types/animejs": "^3.1.12",
+    "@types/express": "^4.17.21",
+    "@types/express-serve-static-core": "^4.17.43",
+    "@types/ua-parser-js": "^0.7.39"
+  },
+  "volta": {
+    "node": "20.11.1"
+  }
+}
