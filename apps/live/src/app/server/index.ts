@@ -3,7 +3,7 @@ import type { LayoutData } from '@rune-ts/server';
 import UAParser from 'ua-parser-js';
 import favicon from '../../../public/favicon.png';
 import { ClientRouter } from '../route';
-import { HelloWorldRender } from '../../pages/HelloWorld/HelloWorld.render';
+import { IterableAndAsyncRender } from '../../pages/live-1/IterableAndAsync.render';
 
 const server = app();
 server.use((req, res, next) => {
@@ -16,7 +16,7 @@ server.use((req, res, next) => {
       is_mobile: res.locals.is_mobile,
     },
     head: {
-      title: 'Hello World',
+      title: 'Iterable and Async',
       description: '',
       link_tags: [
         {
@@ -31,4 +31,7 @@ server.use((req, res, next) => {
   return next();
 });
 
-server.get(ClientRouter['/'].toString(), HelloWorldRender(ClientRouter['/']));
+server.get(
+  ClientRouter['/iterable-and-async'].toString(),
+  IterableAndAsyncRender(ClientRouter['/iterable-and-async']),
+);
