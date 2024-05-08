@@ -3,7 +3,8 @@ import type { LayoutData } from '@rune-ts/server';
 import UAParser from 'ua-parser-js';
 import favicon from '../../../public/favicon.png';
 import { ClientRouter } from '../route';
-import { IterableAndAsyncRender } from '../../pages/live-1/IterableAndAsync.render';
+import { concurrentRenderHandler } from '../../pages/live-1/concurrentRenderHandler';
+import { mplRenderHandler } from '../../pages/live-2/mplRenderHandler';
 
 const server = app();
 server.use((req, res, next) => {
@@ -16,7 +17,7 @@ server.use((req, res, next) => {
       is_mobile: res.locals.is_mobile,
     },
     head: {
-      title: 'Iterable and Async',
+      title: 'Concurrent',
       description: '',
       link_tags: [
         {
@@ -32,6 +33,8 @@ server.use((req, res, next) => {
 });
 
 server.get(
-  ClientRouter['/iterable-and-async'].toString(),
-  IterableAndAsyncRender(ClientRouter['/iterable-and-async']),
+  ClientRouter['/concurrent'].toString(),
+  concurrentRenderHandler(ClientRouter['/concurrent']),
 );
+
+server.get(ClientRouter['/mpl'].toString(), mplRenderHandler(ClientRouter['/mpl']));

@@ -1,8 +1,10 @@
 import { createRouter } from '@rune-ts/server';
-import { IterableAndAsyncRoute } from '../../pages/live-1/IterableAndAsync.route';
+import { ConcurrentRoute } from '../../pages/live-1/concurrentRoute';
+import { MplRoute } from '../../pages/live-2/MplRoute';
 
-type RouterType = typeof IterableAndAsyncRoute;
+type RouterType = typeof ConcurrentRoute & typeof MplRoute;
 
 export const ClientRouter = createRouter<RouterType>({
-  ...IterableAndAsyncRoute,
+  ...ConcurrentRoute,
+  ...MplRoute,
 });
