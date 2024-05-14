@@ -1,4 +1,4 @@
-import { append, concat, flat, map, pipe, reduce, zip } from '@fxts/core';
+import { concat, flat, map, pipe, reduce, zip } from '@fxts/core';
 import { escapeHtml } from './helper';
 
 const joinTT = <T>(strings: TemplateStringsArray, values: T[], f: (value: T) => string) =>
@@ -13,12 +13,6 @@ const joinTT = <T>(strings: TemplateStringsArray, values: T[], f: (value: T) => 
     flat,
     reduce((a, b) => a + b),
   );
-
-// const TaggedTemplates = {
-//   joinTT
-// };
-//
-// TaggedTemplates.joinTT
 
 function upper(strings, ...values: string[]) {
   return joinTT(strings, values, (v) => v.toUpperCase());
