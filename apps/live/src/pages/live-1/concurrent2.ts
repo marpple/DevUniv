@@ -61,21 +61,19 @@ async function concurrent<T, N extends number>(
   limit: GreaterThanZero<N>,
   fs: (() => Promise<T>)[],
 ) {
-  if (limit === 1) {
-    return fromAsync(map((f) => f(), fs));
-  } else {
-    const promiseExecutors = fs.map((f) => new PromiseExecutor(f));
-    const executeIter = map((pe) => pe.execute(), promiseExecutors);
-    await reduceAsync(
-      async (pes, pe) => {
-        await Promise.race(pes.map((pe) => pe.promise));
-        return [...pes.filter((pe) => !pe.fulfilled), pe];
-      },
-      [...take(limit - 1, executeIter)],
-      executeIter,
-    );
-    return fromAsync(promiseExecutors.map((pe) => pe.promise!));
-  }
+  if (limit === 1) return fromAsync(map((f) => f(), fs));
+
+  const promiseExecutors = fs.map((f) => new PromiseExecutor(f));
+  const executeIter = map((pe) => pe.execute(), promiseExecutors);
+  await reduceAsync(
+    async (pes, pe) => {
+      await Promise.race(pes.map((pe) => pe.promise));
+      return [...pes.filter((pe) => !pe.fulfilled), pe];
+    },
+    [...take(limit - 1, executeIter)],
+    executeIter,
+  );
+  return fromAsync(promiseExecutors.map((pe) => pe.promise!));
 }
 
 function log<T>(value: T) {
