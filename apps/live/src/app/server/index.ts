@@ -5,6 +5,7 @@ import favicon from '../../../public/favicon.png';
 import { ClientRouter } from '../route';
 import { concurrentRenderHandler } from '../../pages/live-1/concurrentRenderHandler';
 import { mplRenderHandler } from '../../pages/live-2/mplRenderHandler';
+import { objectFeRenderHandler } from '../../pages/live-3/objectFeRenderHandler';
 
 const server = app();
 server.use((req, res, next) => {
@@ -17,7 +18,7 @@ server.use((req, res, next) => {
       is_mobile: res.locals.is_mobile,
     },
     head: {
-      title: 'Concurrent',
+      title: '',
       description: '',
       link_tags: [
         {
@@ -38,3 +39,8 @@ server.get(
 );
 
 server.get(ClientRouter['/mpl'].toString(), mplRenderHandler(ClientRouter['/mpl']));
+
+server.get(
+  ClientRouter['/object-fe'].toString(),
+  objectFeRenderHandler(ClientRouter['/object-fe']),
+);
