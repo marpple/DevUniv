@@ -56,7 +56,6 @@ class SettingListView extends View<Setting[]> {
 }
 
 class SettingPage extends View<Setting[]> {
-  private _originData = this.data.map((setting): Setting => ({ ...setting }));
   private _checkAllView = new SwitchView({ on: this._isCheckAll() });
   private _listView = new SettingListView(this.data);
 
@@ -68,9 +67,6 @@ class SettingPage extends View<Setting[]> {
           ${this._checkAllView}
         </div>
         <div class="body">${this._listView}</div>
-        <div class="footer">
-          <button class="reset">Reset</button>
-        </div>
       </div>
     `;
   }
@@ -78,7 +74,6 @@ class SettingPage extends View<Setting[]> {
   protected override onRender() {
     this._checkAllView.element().addEventListener('toggled', () => this._checkAll());
     this._listView.element().addEventListener('toggled', () => this._syncCheckAll());
-    this.delegate('click', 'button.reset', () => this._reset());
   }
 
   private _checkAll() {
@@ -94,14 +89,6 @@ class SettingPage extends View<Setting[]> {
 
   private _isCheckAll() {
     return this.data.every((setting) => setting.on);
-  }
-
-  private _reset() {
-    pipe(
-      zip(this._originData, this._listView.itemViews),
-      each(([{ on }, itemView]) => itemView.setOn(on)),
-    );
-    this._syncCheckAll();
   }
 }
 
