@@ -56,8 +56,9 @@ class SettingListView extends View<Setting[]> {
 }
 
 class SettingPage extends View<Setting[]> {
-  private _listView = new SettingListView(this.data.map((setting) => ({ ...setting })));
+  private _originData = this.data.map((setting): Setting => ({ ...setting }));
   private _checkAllView = new SwitchView({ on: this._isCheckAll() });
+  private _listView = new SettingListView(this.data);
 
   override template() {
     return html`
@@ -92,12 +93,12 @@ class SettingPage extends View<Setting[]> {
   }
 
   private _isCheckAll() {
-    return this._listView.itemViews.every((itemView) => itemView.data.on);
+    return this.data.every((setting) => setting.on);
   }
 
   private _reset() {
     pipe(
-      zip(this.data, this._listView.itemViews),
+      zip(this._originData, this._listView.itemViews),
       each(([{ on }, itemView]) => itemView.setOn(on)),
     );
     this._syncCheckAll();
