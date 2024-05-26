@@ -11,7 +11,7 @@ export class SwitchView extends View<{ on: boolean }> {
   }
 
   protected override onRender() {
-    this.element().addEventListener('click', () => this._toggle());
+    this.addEventListener('click', () => this._toggle());
   }
 
   private _toggle() {
