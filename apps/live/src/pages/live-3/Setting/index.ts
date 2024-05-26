@@ -1,29 +1,6 @@
 import { View, html } from 'rune-ts';
-import { each, pipe, zip } from '@fxts/core';
-
-class SwitchView extends View<{ on: boolean }> {
-  override template() {
-    return html`
-      <button class="${this.data.on ? 'on' : ''}">
-        <span class="toggle"></span>
-      </button>
-    `;
-  }
-
-  protected override onRender() {
-    this.element().addEventListener('click', () => this._toggle());
-  }
-
-  private _toggle() {
-    this.setOn(!this.data.on);
-    this.element().dispatchEvent(new CustomEvent('toggled', { bubbles: true }));
-  }
-
-  setOn(bool: boolean) {
-    this.data.on = bool;
-    this.element().classList.toggle('on', bool);
-  }
-}
+import { SwitchView } from '../lib/SwitchView';
+import { Toggled } from '../lib/events/Toggled';
 
 interface Setting {
   title: string;
@@ -31,19 +8,15 @@ interface Setting {
 }
 
 class SettingItemView extends View<Setting> {
-  private _switchView = new SwitchView(this.data);
+  switchView = new SwitchView(this.data);
 
   override template() {
     return html`
       <div>
         <span class="title">${this.data.title}</span>
-        ${this._switchView}
+        ${this.switchView}
       </div>
     `;
-  }
-
-  setOn(bool: boolean) {
-    this._switchView.setOn(bool);
   }
 }
 
@@ -72,15 +45,14 @@ class SettingPage extends View<Setting[]> {
   }
 
   protected override onRender() {
-    this._checkAllView.element().addEventListener('toggled', () => this._checkAll());
-    this._listView.element().addEventListener('toggled', () => this._syncCheckAll());
+    this._checkAllView.addEventListener(Toggled, (e) => this._checkAll(e.detail.on));
+    this._listView.addEventListener(Toggled, () => this._syncCheckAll());
   }
 
-  private _checkAll() {
-    const { on } = this._checkAllView.data;
+  private _checkAll(on: boolean) {
     this._listView.itemViews
       .filter((itemView) => itemView.data.on !== on)
-      .forEach((itemView) => itemView.setOn(on));
+      .forEach((itemView) => itemView.switchView.setOn(on));
   }
 
   private _syncCheckAll() {
@@ -88,7 +60,7 @@ class SettingPage extends View<Setting[]> {
   }
 
   private _isCheckAll() {
-    return this.data.every((setting) => setting.on);
+    return this.data.every(({ on }) => on);
   }
 }
 
