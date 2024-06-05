@@ -44,3 +44,8 @@ server.get(
   ClientRouter['/object-fe'].toString(),
   objectFeRenderHandler(ClientRouter['/object-fe']),
 );
+
+server.get(
+  ClientRouter['/object-fe2'].toString(),
+  objectFeRenderHandler(ClientRouter['/object-fe2']),
+);
