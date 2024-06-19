@@ -31,10 +31,23 @@ export function pixelManipulation({ src_canvas }) {
 
   // 픽셀 처리를 위한 함수 자유롭게 적용 가능
   function process(x, coefficient, gray) {
-    return x * coefficient + gray * (1 - coefficient);
+    // brightness - linear
+    return x * coefficient;
+
+    // brightness - gamma
+    // return 255 * Math.pow(x / 255, coefficient);
+
+    // contrast - linear
+    // return 255 * ((x / 255 - 0.5) * coefficient + 0.5);
+
+    // contrast - sigmoid
+    // return 255 / (1 + Math.exp(-coefficient * (x / 255 - 0.5)));
+
+    // saturation
+    // return x * coefficient + gray * (1 - coefficient);
   }
 
-  const COEFF = 1.5;
+  const COEFF = 1.3;
 
   for (let y = 0; y < src_canvas.height; y++) {
     for (let x = 0; x < src_canvas.width; x++) {
