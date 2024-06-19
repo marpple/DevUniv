@@ -1,3 +1,9 @@
+.idea
+
+# Created by https://www.toptal.com/developers/gitignore/api/node
+# Edit at https://www.toptal.com/developers/gitignore?templates=node
+
+### Node ###
 # Logs
 logs
 *.log
@@ -22,6 +28,15 @@ lib-cov
 # Coverage directory used by tools like istanbul
 coverage
 *.lcov
+
+# nyc test coverage
+.nyc_output
+
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+.grunt
+
+# Bower dependency directory (https://bower.io/)
+bower_components
 
 # node-waf configuration
 .lock-wscript
@@ -65,7 +80,10 @@ web_modules/
 
 # dotenv environment variable files
 .env
-.env.*
+.env.development.local
+.env.test.local
+.env.production.local
+.env.local
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -90,7 +108,6 @@ dist
 
 # vuepress v2.x temp and cache directory
 .temp
-.cache
 
 # Docusaurus cache and generated files
 .docusaurus
@@ -117,20 +134,14 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# build output
-**/dist
-**/.rune
-**/.run
+### Node Patch ###
+# Serverless Webpack directories
+.webpack/
 
-**/.DS_Store
-.settings
-**/.vs
-**/.vscode/*
-!**/.vscode/tasks.json
-!**/.vscode/settings.template.json
-!**/.vscode/launch.template.json
-!**/.vscode/extensions.json
-!tests/cases/projects/projectOption/**/node_modules
-!tests/cases/projects/NodeModulesSearch/**/*
-!tests/baselines/reference/project/nodeModules*/**/*
-.npmrc
+# Optional stylelint cache
+
+# SvelteKit build / generate output
+.svelte-kit
+
+# End of https://www.toptal.com/developers/gitignore/api/node
+n
