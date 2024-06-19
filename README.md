@@ -4,18 +4,18 @@
 ### 실행 방법
 
 - 모듈 설치
-```
+```shell
 npm ci
 ```
 
 
 - 서버 시작
 
-```
+```shell
 npm start
 ```
 
 - 키노트 보기
-```
+```shell
 npm run keynote
 ```
