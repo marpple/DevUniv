@@ -24,7 +24,7 @@ pnpm rune dev
 - Setting App: [/apps/live/src/pages/live-4/Setting/index.ts](https://github.com/marpple/DevUniv/blob/main/apps/live/src/pages/live-4/Setting/index.ts)
 - Todo App: [/apps/live/src/pages/live-4/Todo/index.ts](https://github.com/marpple/DevUniv/blob/main/apps/live/src/pages/live-4/Todo/index.ts)
 
-### 타입 잘 다루기
+### 타입 잘 다루기 - 유틸리티 타입 만들기
 - 소스코드: https://github.com/marpple/DevUniv/tree/devuniv-utility-types
 
 ### 바닐라 자바스크립트로 하는 이미지 프로세싱
