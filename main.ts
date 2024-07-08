@@ -24,11 +24,9 @@ check<Head<[1]>, 1>(Pass);
 check<Head<[]>, undefined>(Pass);
 check<Head<[]>, 2>(Fail);
 
-type Length<T extends any[] | string, P extends any[] = []> = T extends any[]
-  ? T["length"]
-  : T extends `${T[0]}${infer A}`
-  ? Length<A, Append<P, any>>
-  : Length<P>;
+type Length<T extends any[] | string> = T extends string
+  ? Split<T, "">["length"]
+  : T["length"];
 
 check<Length<[1, 2, 3]>, 3>(Pass);
 check<Length<"abcd">, 4>(Pass);
@@ -110,12 +108,15 @@ check<Replace<"abcdfdfda", "f", "c">, "abcdcdcda">(Pass);
 type Split<
   T extends string,
   S extends string,
-  P extends any[] = []
+  Acc extends any[] = []
 > = T extends `${infer A}${S}${infer B}`
-  ? Split<B, S, Append<P, A>>
-  : Append<P, T>;
+  ? Split<B, S, Append<Acc, A>>
+  : T extends ""
+  ? Acc
+  : Append<Acc, T>;
 
 check<Split<"asd,f,fd,dfasd", ",">, ["asd", "f", "fd", "dfasd"]>(Pass);
+check<Split<"abcd", "">, ["a", "b", "c", "d"]>(Pass);
 
 // [].flat()
 
